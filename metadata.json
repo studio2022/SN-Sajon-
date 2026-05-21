@@ -1,0 +1,6 @@
+{
+  "name": "Live Stream Studio",
+  "description": "A professional dual restreaming Android application supporting ExoPlayer link pre-inspection and multiplexing to Facebook and YouTube live. Built with Jetpack Compose and local Room persistence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
