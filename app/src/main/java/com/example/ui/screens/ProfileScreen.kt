@@ -102,7 +102,7 @@ fun ProfileScreen(
 
                     Column {
                         Text(
-                            text = if (config.isAdminOn) "এডমিন একাউন্ট (Super Admin)" else "Primary Broadcaster",
+                            text = if (config.isAdminOn) "Admin Account (Super Admin)" else "Primary Broadcaster",
                             style = MaterialTheme.typography.titleMedium,
                             color = Color(0xFF1C1B1B),
                             fontWeight = FontWeight.Bold
@@ -149,7 +149,7 @@ fun ProfileScreen(
                             Icon(imageVector = Icons.Default.Lock, contentDescription = null, tint = Color(0xFF0061A4))
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "🔐 এডমিন অ্যাক্সেস লক (Admin Access Locked)",
+                                text = "🔐 Admin Access Locked",
                                 style = MaterialTheme.typography.titleMedium,
                                 color = Color(0xFF1C1B1B),
                                 fontWeight = FontWeight.Bold
@@ -159,7 +159,7 @@ fun ProfileScreen(
                         Spacer(modifier = Modifier.height(12.dp))
                         
                         Text(
-                            text = "ব্যবহারকারীদের ক্রেডিট বৃদ্ধি, সিস্টেম ঘোষণা আপডেট এবং অ্যাপ ডাউনলোড লিংক সেট করার জন্য এডমিন মোড আনলক করুন।",
+                            text = "Unlock administrator mode to manage user credits, system banner announcements, and custom APK download URLs.",
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color(0xFF49454F)
                         )
@@ -175,7 +175,7 @@ fun ProfileScreen(
                                 enteredPin = it
                                 if (pinError.isNotBlank()) pinError = ""
                             },
-                            label = { Text("এডমিন সিক্রেট পিন (Default: 1234)") },
+                            label = { Text("Admin Secret PIN (Default: 1234)") },
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.NumberPassword,
                                 imeAction = ImeAction.Done
@@ -200,7 +200,7 @@ fun ProfileScreen(
                                     viewModel.updateConfig(updated)
                                     enteredPin = ""
                                 } else {
-                                    pinError = "ভুল পিন নম্বর! আবার চেষ্টা করুন। (অথবা হোমস্ক্রিনে ADMINPASS কোড দিয়ে রিডিম করুন)"
+                                    pinError = "Incorrect PIN! Please try again (or redeem code ADMINPASS on the Home screen)."
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4)),
@@ -209,7 +209,7 @@ fun ProfileScreen(
                         ) {
                             Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = Color.White)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("এডমিন প্যানেল আনলক করুন", fontWeight = FontWeight.Bold, color = Color.White)
+                            Text("Unlock Admin Panel", fontWeight = FontWeight.Bold, color = Color.White)
                         }
                     }
                 }
@@ -233,7 +233,7 @@ fun ProfileScreen(
                                 Icon(imageVector = Icons.Default.Settings, contentDescription = null, tint = Color(0xFF0061A4))
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "🛠️ এডমিন ড্যাশবোর্ড (Admin Panel)",
+                                    text = "🛠️ Admin Dashboard (Admin Panel)",
                                     style = MaterialTheme.typography.titleMedium,
                                     color = Color(0xFF001D36),
                                     fontWeight = FontWeight.Bold
@@ -250,13 +250,13 @@ fun ProfileScreen(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.size(14.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Text("লগআউট", fontWeight = FontWeight.Bold, color = Color.Red)
+                                    Text("Logout", fontWeight = FontWeight.Bold, color = Color.Red)
                                 }
                             }
                         }
 
                         Text(
-                            text = "এডমিন অ্যাক্সেস পুরোপুরি সক্রিয় আছে। আপনি সমস্ত অ্যাপলিকেশন লাইভ কনফিগারেশন রিয়েল-টাইমে নিয়ন্ত্রণ করতে পারেন।",
+                            text = "Admin access is fully active. You can control all application live configurations in real-time.",
                             style = MaterialTheme.typography.bodySmall,
                             color = Color(0xFF0061A4),
                             modifier = Modifier.padding(bottom = 12.dp)
@@ -267,7 +267,7 @@ fun ProfileScreen(
 
                         // FEATURE 1: USER CREDIT RECHARGER
                         Text(
-                            text = "১. ইউজার ব্যালেন্স কন্ট্রোল (Credit Manager)",
+                            text = "1. User Balance Control (Credit Manager)",
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF1C1B1B)
@@ -282,7 +282,7 @@ fun ProfileScreen(
                             OutlinedTextField(
                                 value = creditInput,
                                 onValueChange = { creditInput = it },
-                                placeholder = { Text("নতুন ব্যালেন্স সেট করুন", style = MaterialTheme.typography.labelSmall) },
+                                placeholder = { Text("Set new balance", style = MaterialTheme.typography.labelSmall) },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
@@ -301,7 +301,7 @@ fun ProfileScreen(
                                 shape = RoundedCornerShape(12.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4))
                             ) {
-                                Text("সেট")
+                                Text("Set")
                             }
                         }
                         
@@ -328,7 +328,7 @@ fun ProfileScreen(
 
                         // FEATURE 2: STREAM SESSION COST RATE
                         Text(
-                            text = "২. প্রতিটি স্ট্রিমের ক্রেডিট রেট সেট করুন (Stream Cost)",
+                            text = "2. Set Credit Rate Per Stream (Stream Cost)",
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF1C1B1B)
@@ -360,7 +360,7 @@ fun ProfileScreen(
                                 shape = RoundedCornerShape(12.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4))
                             ) {
-                                Text("পরিবর্তন")
+                                Text("Change")
                             }
                         }
 
@@ -368,7 +368,7 @@ fun ProfileScreen(
 
                         // FEATURE 3: APP DOWNLOAD LINK UPDATER
                         Text(
-                            text = "৩. সরাসরি APK ডাউনলোড লিংক আপডেট করুন",
+                            text = "3. Update Direct APK Download Link",
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF1C1B1B)
@@ -379,7 +379,7 @@ fun ProfileScreen(
                             OutlinedTextField(
                                 value = downloadLinkInput,
                                 onValueChange = { downloadLinkInput = it },
-                                placeholder = { Text("ড্রাইভ, টেলিগ্রাম বা যেকোনো ডাউনলোড লিংক দিন") },
+                                placeholder = { Text("Enter Google Drive, Telegram, or any download link") },
                                 modifier = Modifier.fillMaxWidth(),
                                 singleLine = true,
                                 shape = RoundedCornerShape(12.dp),
@@ -394,7 +394,7 @@ fun ProfileScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4))
                             ) {
-                                Text("ডাউনলোড লিংক আপডেট করুন 💾", fontWeight = FontWeight.Bold)
+                                Text("Update Download Link 💾", fontWeight = FontWeight.Bold)
                             }
                         }
 
@@ -402,7 +402,7 @@ fun ProfileScreen(
 
                         // FEATURE 4: HOME BANNER ANNOUNCEMENT
                         Text(
-                            text = "৪. হোমস্ক্রিন নোটিশ/ঘোষণা আপডেট করুন",
+                            text = "4. Update HomeScreen Announcement/Notice",
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF1C1B1B)
@@ -413,7 +413,7 @@ fun ProfileScreen(
                             OutlinedTextField(
                                 value = noticeInput,
                                 onValueChange = { noticeInput = it },
-                                placeholder = { Text("হোমস্ক্রিনের ব্যানার ঘোষণাটি এখানে লিখুন") },
+                                placeholder = { Text("Enter the Home screen banner announcement notice here") },
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp),
                                 colors = OutlinedTextFieldDefaults.colors(focusedContainerColor = Color.White, unfocusedContainerColor = Color.White)
@@ -427,7 +427,7 @@ fun ProfileScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4))
                             ) {
-                                Text("নতুন নোটিশ আপডেট করুন 📣", fontWeight = FontWeight.Bold)
+                                Text("Update Announcement Notice 📣", fontWeight = FontWeight.Bold)
                             }
                         }
 
@@ -440,7 +440,7 @@ fun ProfileScreen(
                             Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color(0xFF0061A4))
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "কোড আপডেট এবং নতুন ফিচার নির্দেশিকা",
+                                text = "Code Update & New Feature Guide",
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFF001D36)
@@ -456,18 +456,18 @@ fun ProfileScreen(
                         ) {
                             Column(modifier = Modifier.padding(14.dp)) {
                                 Text(
-                                    text = "ভবিষ্যতে অ্যাপস আপডেট করার নিয়মাবলী:",
+                                    text = "Guidelines for future app updates:",
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Bold,
                                     color = Color(0xFF1C1B1B)
                                 )
                                 Spacer(modifier = Modifier.height(6.dp))
                                 val guideSteps = listOf(
-                                    "১. কোডে নতুন ফিচার যোগ করতে Google AI Studio চ্যাটবক্সে কী চান তা বাংলা বা ইংরেজিতে নির্দেশ দিন (যেমন: 'add a custom stream resolution setting' অথবা 'add dark theme support')",
-                                    "২. AI সহকারী কোড ফাইল স্ক্রিনগুলোর ডিজাইন পরিবর্তন করে কম্পোজড এপিকে এবং মডিউল জেনারেট করে দেবে।",
-                                    "৩. কোড পরিবর্তন শেষ হলে 'compile_applet' রান করে নিশ্চিত করুন যে অ্যাপ সঠিকভাবে বিল্ড হচ্ছে কিনা।",
-                                    "৪. এরপর এআই স্টুডিও সেটিংস থেকে সরাসরি 'Generate APK' সিলেক্ট করে নতুন সাইন্ড এপিকে জেনারেট করতে পারবেন যা যেকোনো ফোনে ইন্সটল করা যাবে।",
-                                    "৫. নতুন জেনারেট হওয়া APK ফাইলটি আপনার গুগল ড্রাইভ বা শেয়ারিং সাইটে আপলোড করে লিংকটি এখানে ৩ নম্বর বক্সে আপডেট করে দিলেই হবে! সকল ইউজার তখন সেটিং অপশন থেকে সরাসরি এক ক্লিকে নতুন আপডেট ইনস্টল করতে পারবে।"
+                                     "1. To add new features inside the code, instruct the chatbot in the Google AI Studio chat with what you want in English or Bengali (e.g., 'add a custom stream resolution setting' or 'add dark theme support').",
+                                     "2. The AI assistant will edit the code, upgrade screen designs, compile the APK, and generate the necessary modules.",
+                                     "3. Once the code changes are done, click 'compile_applet' to ensure the application builds successfully without errors.",
+                                     "4. Afterwards, from AI Studio's settings menu, select 'Generate APK' directly to generate a signed APK that is ready to install on any Android phone.",
+                                     "5. Upload the newly generated APK file to your Google Drive, Telegram channel, or any host, and paste the URL here in Box 3! Users can then update directly with a single click in Settings."
                                 )
                                 guideSteps.forEach { step ->
                                     Text(

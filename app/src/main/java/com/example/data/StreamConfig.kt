@@ -22,7 +22,7 @@ data class StreamConfig(
     val isAdminOn: Boolean = false, // starts as regular, admin can toggle
     val streamCost: Int = 10, // credit cost per stream
     val adminPin: String = "1234", // simple Admin PIN code
-    val adminAnnouncement: String = "স্বাগতম! আপনার লাইভ স্ট্রিম স্টুডিও সচল আছে। এডমিন প্যানেল থেকে আপনার ক্রেডিট বুস্ট করুন।",
+    val adminAnnouncement: String = "Welcome! Your Live Stream Studio is active. Boost your credits from the admin panel.",
     val appDownloadUrl: String = "https://ai.studio/build" // App download URL configured by admin
 )
 

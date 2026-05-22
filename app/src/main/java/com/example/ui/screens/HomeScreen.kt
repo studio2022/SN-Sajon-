@@ -262,13 +262,13 @@ fun HomeScreen(
                             }
                             Column {
                                 Text(
-                                    text = "এপিকে ডাউনলোড ও ইনস্টল গাইড 💾",
+                                    text = "APK Download & Install Guide 💾",
                                     style = MaterialTheme.typography.titleMedium,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
-                                    text = if (isHelpExpanded) "সহজ ৪টি ধাপে অ্যাপ ফোনে নিন" else "ডাউনলোড করতে সমস্যা? এখানে ক্লিক করুন!",
+                                    text = if (isHelpExpanded) "Get the app on your phone in 3 easy steps" else "Trouble downloading? Click here!",
                                     style = MaterialTheme.typography.labelSmall,
                                     color = Color(0xFF00E5FF),
                                     fontWeight = FontWeight.SemiBold
@@ -293,7 +293,7 @@ fun HomeScreen(
                             Spacer(modifier = Modifier.height(12.dp))
                             
                             Text(
-                                text = "গুগল এআই স্টুডিও থেকে এপিকে (APK) ফাইল আপনার ফোনে নামানোর ৩টি সহজ ডিরেক্ট উপায়:",
+                                text = "3 easy direct ways to download and install the APK file on your device:",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = Color(0xFFE2E8F0),
                                 fontWeight = FontWeight.Bold,
@@ -309,17 +309,17 @@ fun HomeScreen(
                                         .background(Color(0xFF00E5FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("১", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
+                                    Text("1", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
                                 }
                                 Column {
                                     Text(
-                                        text = "এআই স্টুডিওর সেটিংস প্যানেল থেকে (Easy Export)",
+                                        text = "From AI Studio Settings Panel (Easy Export)",
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
                                         color = Color.White
                                     )
                                     Text(
-                                        text = "আপনার ব্রাউজার স্ক্রিনের ওপরের ডানদিকের গিয়ার (Gear/Hamburger) আইকনে ক্লিক করুন, সেখান থেকে 'Generate APK' সিলেক্ট করুন। ৩ মিনিট সময় লাগবে, তারপর ডাউনলোড লিংক স্ক্রিনে চলে আসবে।",
+                                        text = "Click on the gear/hamburger icon at the top right of your browser, then select 'Generate APK'. It takes about 3 minutes, then the download link will appear on the screen.",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = Color(0xFF94A3B8)
                                     )
@@ -334,17 +334,17 @@ fun HomeScreen(
                                         .background(Color(0xFF00E5FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("২", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
+                                    Text("2", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
                                 }
                                 Column {
                                     Text(
-                                        text = "সরাসরি এডমিন আপডেটেড ডাউনলোড লিংক (Direct Link)",
+                                        text = "Direct Admin Download Link (Direct Link)",
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
                                         color = Color.White
                                     )
                                     Text(
-                                        text = "এডমিন কর্তৃক আপলোড করা গুগল ড্রাইভ বা অন্য সরাসরি ইনস্টলার লিংক থেকে যেকোনো সময় ডাউনলোড করতে নিচের নীল বাটনে ট্যাপ করুন।",
+                                        text = "Tap the button below to download the application anytime from the direct link updated by the administrator.",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = Color(0xFF94A3B8)
                                     )
@@ -359,17 +359,17 @@ fun HomeScreen(
                                         .background(Color(0xFF00E5FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("৩", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
+                                    Text("3", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
                                 }
                                 Column {
                                     Text(
-                                        text = "ইনস্টলেশন ওয়ার্নিং এড়িয়ে চলুন (Install Unknown Apps)",
+                                        text = "Bypass Installation Warnings (Install Unknown Apps)",
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
                                         color = Color.White
                                     )
                                     Text(
-                                        text = "ডাউনলোড শেষে ইন্সটল করার সময় অ্যান্ড্রয়েড 'Unknown Sources' বা 'Chrome/Browser Install' ওয়ার্নিং দেখাবে, দয়া করে 'Install Anyway' বা 'পারমিশন দিন' দিয়ে সফলভাবে ইনস্টল করে নিন।",
+                                        text = "When installing after download, Android might show an 'Unknown Sources' or 'Play Protect' warning. Please tap 'Install Anyway' or 'Allow' to install successfully.",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = Color(0xFF94A3B8)
                                     )
@@ -397,7 +397,7 @@ fun HomeScreen(
                                 Icon(imageVector = Icons.Default.Share, contentDescription = null, tint = Color(0xFF0B0F19), modifier = Modifier.size(18.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "সরাসরি লিঙ্ক থেকে এপিকে (APK) নামান ⚡",
+                                    text = "Download APK from Direct Link ⚡",
                                     fontWeight = FontWeight.Bold,
                                     style = MaterialTheme.typography.labelLarge,
                                     color = Color(0xFF0B0F19)
@@ -435,7 +435,7 @@ fun HomeScreen(
                                 modifier = Modifier.size(20.dp)
                             )
                             Text(
-                                text = "আপনার ব্যালেন্স:",
+                                text = "Your Balance:",
                                 style = MaterialTheme.typography.titleMedium,
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold
@@ -458,7 +458,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "১টি লাইভ স্ট্রিম সেশন = ${config.streamCost} ক্রেডিট।",
+                        text = "1 Live Stream Session = ${config.streamCost} Credits.",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color(0xFF6EE7B7),
                         fontWeight = FontWeight.Bold
@@ -499,7 +499,7 @@ fun HomeScreen(
                         OutlinedTextField(
                             value = redeemCode,
                             onValueChange = { redeemCode = it },
-                            placeholder = { Text("ক্রেডিট কোড (যেমন: FREE50)", style = MaterialTheme.typography.labelSmall, color = Color(0xFF94A3B8)) },
+                            placeholder = { Text("Promo Code (e.g. FREE50)", style = MaterialTheme.typography.labelSmall, color = Color(0xFF94A3B8)) },
                             modifier = Modifier.weight(1f).height(50.dp),
                             singleLine = true,
                             shape = RoundedCornerShape(12.dp),
@@ -519,34 +519,34 @@ fun HomeScreen(
                                     "FREE50" -> {
                                         val updated = config.copy(userCredits = config.userCredits + 50)
                                         viewModel.updateConfig(updated)
-                                        redeemStatus = "সফলভাবে ৫০ ক্রেডিট যুক্ত হয়েছে! 🎉"
+                                        redeemStatus = "Successfully added 50 credits! 🎉"
                                         redeemColor = Color(0xFF10B981)
                                         redeemCode = ""
                                     }
                                     "BUY100" -> {
                                         val updated = config.copy(userCredits = config.userCredits + 100)
                                         viewModel.updateConfig(updated)
-                                        redeemStatus = "সফলভাবে ১০০ ক্রেডিট যুক্ত হয়েছে! 💰"
+                                        redeemStatus = "Successfully added 100 credits! 💰"
                                         redeemColor = Color(0xFF10B981)
                                         redeemCode = ""
                                     }
                                     "VIP500" -> {
                                         val updated = config.copy(userCredits = config.userCredits + 500)
                                         viewModel.updateConfig(updated)
-                                        redeemStatus = "সফলভাবে ৫০০ ভিআইপি ক্রেডিট যুক্ত হয়েছে! 👑"
+                                        redeemStatus = "Successfully added 500 VIP credits! 👑"
                                         redeemColor = Color(0xFF10B981)
                                         redeemCode = ""
                                     }
                                     "ADMINPASS" -> {
                                         val updated = config.copy(isAdminOn = true, userCredits = config.userCredits + 1000)
                                         viewModel.updateConfig(updated)
-                                        redeemStatus = "এডমিন অ্যাক্সেস এবং ১০০০ ক্রেডিট আনলক হয়েছে! 🛠️"
+                                        redeemStatus = "Admin Access and 1000 credits unlocked! 🛠️"
                                         redeemColor = Color(0xFF8B5CF6)
                                         redeemCode = ""
                                     }
                                     else -> {
                                         if (code.isNotBlank()) {
-                                            redeemStatus = "ভুল কোড! সঠিক কোড দিন বা কিনুন ❌"
+                                            redeemStatus = "Invalid Code! Please check and try again ✕"
                                             redeemColor = Color.Red
                                         }
                                     }
@@ -556,7 +556,7 @@ fun HomeScreen(
                             modifier = Modifier.height(48.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981))
                         ) {
-                            Text("রিডিম", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium, color = Color(0xFF0B0F19))
+                            Text("Redeem", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium, color = Color(0xFF0B0F19))
                         }
                     }
 
@@ -757,7 +757,7 @@ fun HomeScreen(
 
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "দ্রুত টেস্ট করতে একটি স্যাম্পল সোর্স সিলেক্ট করুন (Tap to Test):",
+                        text = "Select a sample source for a quick test (Tap to Test):",
                         style = MaterialTheme.typography.labelSmall,
                         color = Color(0xFF94A3B8),
                         fontWeight = FontWeight.SemiBold
@@ -963,12 +963,12 @@ fun HomeScreen(
                             title = {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     Icon(imageVector = Icons.Default.Warning, contentDescription = null, tint = Color.Red)
-                                    Text("পর্যাপ্ত ক্রেডিট নেই! ⚠️", fontWeight = FontWeight.Bold)
+                                    Text("Insufficient Credits! ⚠️", fontWeight = FontWeight.Bold)
                                 }
                             },
                             text = {
                                 Text(
-                                    "আপনার বর্তমান ব্যালেন্স: ${config.userCredits} ক্রেডিট এবং প্রতিটি সেশনের খরচ: ${config.streamCost} ক্রেডিট। দয়া করে ক্রেডিট রিডিম করুন বা এডমিন প্যানেল ব্যবহার করুন।"
+                                    "Your current balance is ${config.userCredits} credits, and each session costs ${config.streamCost} credits. Please redeem promo codes or unlock the admin panel to add more credits."
                                 )
                             },
                             confirmButton = {
@@ -976,7 +976,7 @@ fun HomeScreen(
                                     onClick = { showCreditDialog = false },
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4))
                                 ) {
-                                    Text("ঠিক আছে", fontWeight = FontWeight.Bold)
+                                    Text("OK", fontWeight = FontWeight.Bold)
                                 }
                             }
                         )

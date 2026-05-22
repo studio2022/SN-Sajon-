@@ -228,7 +228,7 @@ fun SettingsScreen(
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = "লাইভ স্ট্রিম অপ্টিমাইজেশন ও স্পিড টেস্ট ⚡",
+                            text = "Live Stream Optimization & Speed Test ⚡",
                             style = MaterialTheme.typography.titleMedium,
                             color = Color(0xFF001D36),
                             fontWeight = FontWeight.Bold
@@ -239,7 +239,7 @@ fun SettingsScreen(
 
                     // Encoding settings
                     Text(
-                        text = "আউটপুট রেজোলিউশন (Target Resolution):",
+                        text = "Target Resolution:",
                         style = MaterialTheme.typography.labelSmall,
                         color = Color(0xFF49454F),
                         fontWeight = FontWeight.Bold
@@ -262,7 +262,7 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "টার্গেট ফ্রেমরেট (Target Framerate):",
+                        text = "Target Framerate:",
                         style = MaterialTheme.typography.labelSmall,
                         color = Color(0xFF49454F),
                         fontWeight = FontWeight.Bold
@@ -287,14 +287,14 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "ক্লাউড স্ট্রিমিং সার্ভার সংযোগ ডায়াগনস্টিক:",
+                        text = "Cloud Streaming Ingest Connection Diagnostics:",
                         style = MaterialTheme.typography.bodySmall,
                         color = Color(0xFF1C1B1B),
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = "ফেসবुक ও ইউটিউব সার্ভারে লাইভ স্ট্রিম পাঠানোর লাইভ সংযোগের গতি ও পিং পরিমাপ করুন।",
+                        text = "Measure connection speed and round-trip ping latency to Facebook and YouTube ingest nodes.",
                         style = MaterialTheme.typography.labelSmall,
                         color = Color(0xFF49454F)
                     )
@@ -314,7 +314,7 @@ fun SettingsScreen(
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(
-                                text = "সার্ভার স্পিড পরীক্ষা করা হচ্ছে... দয়া করে অপেক্ষা করুন",
+                                text = "Testing connection to streaming nodes... Please wait",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = Color(0xFF0061A4),
                                 fontWeight = FontWeight.SemiBold
@@ -327,10 +327,10 @@ fun SettingsScreen(
                                 scope.launch {
                                     kotlinx.coroutines.delay(1800)
                                     isTestingNetwork = false
-                                    networkReport = "📊 পরীক্ষা সম্পন্ন!\n" +
-                                            "• ফেসবুক লাইভ আরটিএমপি (FB Ingest): ৯.৪ Mbps (খুবই স্থিতিশীল)\n" +
-                                            "• ইউটিউব আরটিএমপি (YT Ingest): ১৪.৮ Mbps (অনবদ্য)\n" +
-                                            "• নিরাপদ বিটরেট সাজেশন: ৪২০০ Kbps @ 60fps (প্রস্তাবিত)"
+                                    networkReport = "📊 Test Completed Successfully!\n" +
+                                            "• Facebook Live RTMP (FB Ingest): 9.4 Mbps (Highly Stable)\n" +
+                                            "• YouTube Live RTMP (YT Ingest): 14.8 Mbps (Excellent)\n" +
+                                            "• Safe Bitrate Suggestion: 4200 Kbps @ 60fps (Recommended)"
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4).copy(alpha = 0.1f)),
@@ -340,7 +340,7 @@ fun SettingsScreen(
                             Icon(imageVector = Icons.Default.Refresh, contentDescription = "Test", tint = Color(0xFF0061A4), modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "সার্ভার স্পিড পরীক্ষা করুন ⚡",
+                                text = "Test Server Speed ⚡",
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFF0061A4),
                                 style = MaterialTheme.typography.labelLarge
@@ -473,7 +473,7 @@ fun SettingsScreen(
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = if (isFbHelpVisible) "ফেসবুক গাইড লুকান ✕" else "ফেসবুক লাইভ করার নিয়ম দেখুন 💡",
+                            text = if (isFbHelpVisible) "Hide FB Guide ✕" else "How to Facebook Live 💡",
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -490,7 +490,7 @@ fun SettingsScreen(
                         ) {
                             Column {
                                 Text(
-                                    text = "ফেসবুক লাইভ কানেক্ট করার নির্দেশিকা:",
+                                    text = "Facebook Live Connection Guide:",
                                     style = MaterialTheme.typography.titleSmall,
                                     color = Color(0xFF1877F2),
                                     fontWeight = FontWeight.Bold
@@ -498,12 +498,12 @@ fun SettingsScreen(
                                 Spacer(modifier = Modifier.height(8.dp))
                                 
                                 val steps = listOf(
-                                    "১. আপনার ফেসবুক প্রোফাইল বা পেজ থেকে 'Live Video (লাইভ ভিডিও)' অপশনে গিয়ে 'Go Live (লাইভ যান)' সিলেক্ট করুন।",
-                                    "২. লাইভ কন্ট্রোল প্যানেল থেকে 'Streaming Software (স্ট্রিমিং সফটওয়্যার)' অপশনটি বেছে নিন।",
-                                    "৩. সেখান থেকে 'Server URL' কপি করে উপরে 'RTMP Server / Ingest URL' ঘরে পেস্ট করুন।",
-                                    "৪. তার নিচের 'Stream Key (স্ট্রিম কী)' কপি করে উপরে 'Facebook Stream Key' ঘরে পেস্ট করুন।",
-                                    "৫. ওপরের Active Broadcasters তালিকায় অবশ্যই 'Facebook' সিলেক্ট করে অন করে দিন।",
-                                    "৬. হোম (Home) ট্যাবে ফিরে গিয়ে আপনার পছন্দসই সোর্স ভিডিওর লিংক দিন এবং 'START MULTI-STREAM' বাটনে চাপলেই ফেসবুক লাইভ শুরু হয়ে যাবে!"
+                                    "1. Go to your Facebook Profile or Page, click 'Live Video', and select 'Go Live'.",
+                                    "2. From the Live Control Panel, choose 'Streaming Software' as your source setup.",
+                                    "3. Copy the 'Server URL' and paste it in 'RTMP Server / Ingest URL' above.",
+                                    "4. Copy the 'Stream Key' and paste it in the 'Facebook Stream Key' field above.",
+                                    "5. Make sure 'Facebook' is turned on under the Active Broadcasters list above.",
+                                    "6. Return to the Home tab, enter your source video link, and tap 'START MULTI-STREAM'!"
                                 )
                                 
                                 steps.forEach { step ->
@@ -710,7 +710,7 @@ fun SettingsScreen(
                             )
                         }
                         Text(
-                            text = "অ্যাপ ডাউনলোড করার গাইড 📲",
+                            text = "App Download Guide 📲",
                             style = MaterialTheme.typography.titleMedium,
                             color = Color(0xFF0061A4),
                             fontWeight = FontWeight.Bold
@@ -720,7 +720,7 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(10.dp))
                     
                     Text(
-                        text = "আমাদের এই সিস্টেমটি ক্লাউড ইমুলেটরে চলছে। আপনি যদি আপনার আসল অ্যান্ড্রয়েড ফোনে এই অ্যাপটি ইনস্টল করে চালাতে চান, তবে নিচের নির্দেশাবলী অনুসরণ করুন:",
+                        text = "This application is currently running on a cloud-based Android streaming emulator. If you would like to download and install this app onto your physical Android smartphone, please follow these instructions:",
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color(0xFF1C1B1B)
                     )
@@ -760,7 +760,7 @@ fun SettingsScreen(
                         Icon(imageVector = Icons.Default.Share, contentDescription = "Download APK", tint = Color.White)
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "সরাসরি ব্রাউজারে APK ডাউনলোড করুন 📥",
+                            text = "Download APK Directly in Browser 📥",
                             fontWeight = FontWeight.Bold,
                             color = Color.White
                         )
@@ -769,10 +769,10 @@ fun SettingsScreen(
                     Spacer(modifier = Modifier.height(12.dp))
                     
                     val downloadSteps = listOf(
-                        "১. গুগল এআই স্টুডিও বা অ্যাপ উইন্ডোর ওপরের ডানদিকের গিয়ার বা সেটিংস মেনুতে ক্লিক করুন।",
-                        "২. সেখান থেকে আপনি 'Export ZIP' ক্লিক করে এই পুরো সোর্স কোড ডাউনলোড করতে পারবেন।",
-                        "৩. অথবা অ্যাপের সম্পূর্ণ অ্যান্ড্রয়েড APK ফাইল জেনারেট করে সরাসরি ডাউনলোড করতে 'Generate APK' বেছে নিন।",
-                        "৪. APK ফাইনাল ডাউনলোড হলে আপনার ফোনে ইন্সটল করার সময় 'Install from unknown sources' অন করে সহজে ইন্সটল করে ব্যবহার করতে পারবেন।"
+                        "1. Click the gear/settings icon at the top right of the Google AI Studio app window.",
+                        "2. From there, you can click 'Export ZIP' to download the complete Android source code project.",
+                        "3. Alternatively, select 'Generate APK' to compile the signed package and download the installer directly.",
+                        "4. Once the final APK is downloaded, enable 'Install from Unknown Sources' in your Android settings to install successfully."
                     )
                     
                     downloadSteps.forEach { step ->
