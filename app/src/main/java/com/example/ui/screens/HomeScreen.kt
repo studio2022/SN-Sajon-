@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -9,6 +11,8 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -175,6 +179,187 @@ fun HomeScreen(
                             color = Color(0xFF49454F),
                             fontWeight = FontWeight.SemiBold
                         )
+                    }
+                }
+            }
+        }
+
+        // Collapsible APK Download & Update Help Guide (Bengali and English)
+        item {
+            var isHelpExpanded by remember { mutableStateOf(false) }
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(
+                        width = 1.5.dp,
+                        color = Color(0xFF0061A4).copy(alpha = if (isHelpExpanded) 0.5f else 0.2f),
+                        shape = RoundedCornerShape(24.dp)
+                    ),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = if (isHelpExpanded) Color(0xFFF1F5F9) else Color.White),
+                elevation = CardDefaults.cardElevation(defaultElevation = if (isHelpExpanded) 2.dp else 0.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { isHelpExpanded = !isHelpExpanded },
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Box(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .background(Color(0xFF0061A4).copy(alpha = 0.12f), CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text("📲", style = MaterialTheme.typography.bodyLarge)
+                            }
+                            Column {
+                                Text(
+                                    text = "এপিকে ডাউনলোড ও ইনস্টল গাইড 💾",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = Color(0xFF001D36),
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = if (isHelpExpanded) "সহজ ৪টি ধাপে অ্যাপ ফোনে নিন" else "ডাউনলোড করতে সমস্যা? এখানে ক্লিক করুন!",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = Color(0xFF0061A4),
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                        Icon(
+                            imageVector = if (isHelpExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                            contentDescription = "Toggle Help",
+                            tint = Color(0xFF0061A4)
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = isHelpExpanded,
+                        enter = expandVertically() + fadeIn(),
+                        exit = shrinkVertically() + fadeOut()
+                    ) {
+                        Column {
+                            Spacer(modifier = Modifier.height(14.dp))
+                            HorizontalDivider(color = Color(0xFF0061A4).copy(alpha = 0.12f))
+                            Spacer(modifier = Modifier.height(12.dp))
+                            
+                            Text(
+                                text = "গুগল এআই স্টুডিও থেকে এপিকে (APK) ফাইল আপনার ফোনে নামানোর ৩টি সহজ ডিরেক্ট উপায়:",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color(0xFF1C1B1B),
+                                fontWeight = FontWeight.Bold,
+                                lineHeight = MaterialTheme.typography.bodySmall.lineHeight * 1.2
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            // Step 1
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(vertical = 4.dp)) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .background(Color(0xFF0061A4), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text("১", style = MaterialTheme.typography.labelSmall, color = Color.White, fontWeight = FontWeight.Black)
+                                }
+                                Column {
+                                    Text(
+                                        text = "এআই স্টুডিওর সেটিংস প্যানেল থেকে (Easy Export)",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF001D36)
+                                    )
+                                    Text(
+                                        text = "আপনার ব্রাউজার স্ক্রিনের ওপরের ডানদিকের গিয়ার (Gear/Hamburger) আইকনে ক্লিক করুন, সেখান থেকে 'Generate APK' সিলেক্ট করুন। ৩ মিনিট সময় লাগবে, তারপর ডাউনলোড লিংক স্ক্রিনে চলে আসবে।",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = Color(0xFF49454F)
+                                    )
+                                }
+                            }
+
+                            // Step 2
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(vertical = 4.dp)) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .background(Color(0xFF0061A4), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text("২", style = MaterialTheme.typography.labelSmall, color = Color.White, fontWeight = FontWeight.Black)
+                                }
+                                Column {
+                                    Text(
+                                        text = "সরাসরি এডমিন আপডেটেড ডাউনলোড লিংক (Direct Link)",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF001D36)
+                                    )
+                                    Text(
+                                        text = "এডমিন কর্তৃক আপলোড করা গুগল ড্রাইভ বা অন্য সরাসরি ইনস্টলার লিংক থেকে যেকোনো সময় ডাউনলোড করতে নিচের নীল বাটনে ট্যাপ করুন।",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = Color(0xFF49454F)
+                                    )
+                                }
+                            }
+
+                            // Step 3
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(vertical = 4.dp)) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .background(Color(0xFF0061A4), CircleShape),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text("৩", style = MaterialTheme.typography.labelSmall, color = Color.White, fontWeight = FontWeight.Black)
+                                }
+                                Column {
+                                    Text(
+                                        text = "ইনস্টলেশন ওয়ার্নিং এড়িয়ে চলুন (Install Unknown Apps)",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF001D36)
+                                    )
+                                    Text(
+                                        text = "ডাউনলোড শেষে ইন্সটল করার সময় অ্যান্ড্রয়েড 'Unknown Sources' বা 'Chrome/Browser Install' ওয়ার্নিং দেখাবে, দয়া করে 'Install Anyway' বা 'পারমিশন দিন' দিয়ে সফলভাবে ইনস্টল করে নিন।",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = Color(0xFF49454F)
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(14.dp))
+                            
+                            val localContext = LocalContext.current
+                            Button(
+                                onClick = {
+                                    try {
+                                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(config.appDownloadUrl.trim()))
+                                        localContext.startActivity(intent)
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4)),
+                                shape = RoundedCornerShape(12.dp)
+                            ) {
+                                Icon(imageVector = Icons.Default.Share, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "সরাসরি লিঙ্ক থেকে এপিকে (APK) নামান ⚡",
+                                    fontWeight = FontWeight.Bold,
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -423,10 +608,20 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         if (isStreaming) {
+                            val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+                            val pulseAlpha by infiniteTransition.animateFloat(
+                                initialValue = 0.5f,
+                                targetValue = 1.0f,
+                                animationSpec = infiniteRepeatable(
+                                    animation = tween(1000, easing = LinearEasing),
+                                    repeatMode = RepeatMode.Reverse
+                                ),
+                                label = "alpha"
+                            )
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(6.dp))
-                                    .background(Color(0xFFDC2626))
+                                    .background(Color(0xFFDC2626).copy(alpha = pulseAlpha))
                                     .padding(horizontal = 8.dp, vertical = 4.dp)
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -437,7 +632,7 @@ fun HomeScreen(
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = "LIVE",
+                                        text = "LIVE ●",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = Color.White,
                                         fontWeight = FontWeight.Bold
@@ -513,6 +708,49 @@ fun HomeScreen(
                             )
                         }
                     )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = "দ্রুত টেস্ট করতে একটি স্যাম্পল সোর্স সিলেক্ট করুন (Tap to Test):",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Color(0xFF49454F),
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val presets = listOf(
+                            Triple("🐰 Bunny (HLS)", "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", "Big Buck Bunny HLS Stream"),
+                            Triple("🎬 Sintel (MP4)", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4", "Sintel Movie MP4 Trailer"),
+                            Triple("⚡ Tears (MP4)", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4", "Tears of Steel HD Clip"),
+                            Triple("🐘 Dream (HLS)", "https://playertest.longtailvideo.com/adaptive/elephants_dream/elephants_dream.m3u8", "Elephant's Dream Adaptive HLS")
+                        )
+                        presets.forEach { (name, url, desc) ->
+                            FilterChip(
+                                selected = inputUrl == url,
+                                onClick = {
+                                    inputUrl = url
+                                    viewModel.updateConfig(config.copy(sourceVideoUrl = url))
+                                },
+                                label = { Text(name, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold) },
+                                leadingIcon = if (inputUrl == url) {
+                                    {
+                                        Icon(
+                                            imageVector = Icons.Default.Check,
+                                            contentDescription = "Selected",
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                    }
+                                } else null,
+                                elevation = FilterChipDefaults.filterChipElevation(elevation = 2.dp)
+                            )
+                        }
+                    }
                 }
             }
         }
