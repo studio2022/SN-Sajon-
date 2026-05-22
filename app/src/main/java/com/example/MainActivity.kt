@@ -55,11 +55,11 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         Column {
                             HorizontalDivider(
-                                color = Color(0xFFE1E2E1),
+                                color = Color(0xFF00E5FF).copy(alpha = 0.25f),
                                 thickness = 1.dp
                             )
                             NavigationBar(
-                                containerColor = Color(0xFFFFFFFF),
+                                containerColor = Color(0xFF0F172A),
                                 tonalElevation = 8.dp,
                                 modifier = Modifier.testTag("app_navigation_bar")
                             ) {
@@ -69,11 +69,11 @@ class MainActivity : ComponentActivity() {
                                     icon = { Icon(Icons.Default.Home, contentDescription = "Home", modifier = Modifier.size(24.dp)) },
                                     label = { Text("Home", fontWeight = FontWeight.Bold) },
                                     colors = NavigationBarItemDefaults.colors(
-                                        selectedIconColor = Color(0xFF0061A4),
-                                        selectedTextColor = Color(0xFF1C1B1B),
-                                        unselectedIconColor = Color(0xFF49454F),
-                                        unselectedTextColor = Color(0xFF49454F),
-                                        indicatorColor = Color(0xFFD1E4FF)
+                                        selectedIconColor = Color(0xFF00E5FF),
+                                        selectedTextColor = Color(0xFF00E5FF),
+                                        unselectedIconColor = Color(0xFF94A3B8),
+                                        unselectedTextColor = Color(0xFF94A3B8),
+                                        indicatorColor = Color(0xFF00E5FF).copy(alpha = 0.2f)
                                     ),
                                     modifier = Modifier.testTag("tab_button_home")
                                 )
@@ -84,11 +84,11 @@ class MainActivity : ComponentActivity() {
                                     icon = { Icon(Icons.Default.Settings, contentDescription = "Settings", modifier = Modifier.size(24.dp)) },
                                     label = { Text("Settings", fontWeight = FontWeight.Bold) },
                                     colors = NavigationBarItemDefaults.colors(
-                                        selectedIconColor = Color(0xFF0061A4),
-                                        selectedTextColor = Color(0xFF1C1B1B),
-                                        unselectedIconColor = Color(0xFF49454F),
-                                        unselectedTextColor = Color(0xFF49454F),
-                                        indicatorColor = Color(0xFFD1E4FF)
+                                        selectedIconColor = Color(0xFF00E5FF),
+                                        selectedTextColor = Color(0xFF00E5FF),
+                                        unselectedIconColor = Color(0xFF94A3B8),
+                                        unselectedTextColor = Color(0xFF94A3B8),
+                                        indicatorColor = Color(0xFF00E5FF).copy(alpha = 0.2f)
                                     ),
                                     modifier = Modifier.testTag("tab_button_settings")
                                 )
@@ -99,11 +99,11 @@ class MainActivity : ComponentActivity() {
                                     icon = { Icon(Icons.Default.List, contentDescription = "Analytics", modifier = Modifier.size(24.dp)) },
                                     label = { Text("Analytics", fontWeight = FontWeight.Bold) },
                                     colors = NavigationBarItemDefaults.colors(
-                                        selectedIconColor = Color(0xFF0061A4),
-                                        selectedTextColor = Color(0xFF1C1B1B),
-                                        unselectedIconColor = Color(0xFF49454F),
-                                        unselectedTextColor = Color(0xFF49454F),
-                                        indicatorColor = Color(0xFFD1E4FF)
+                                        selectedIconColor = Color(0xFF00E5FF),
+                                        selectedTextColor = Color(0xFF00E5FF),
+                                        unselectedIconColor = Color(0xFF94A3B8),
+                                        unselectedTextColor = Color(0xFF94A3B8),
+                                        indicatorColor = Color(0xFF00E5FF).copy(alpha = 0.2f)
                                     ),
                                     modifier = Modifier.testTag("tab_button_analytics")
                                 )
@@ -114,11 +114,11 @@ class MainActivity : ComponentActivity() {
                                     icon = { Icon(Icons.Default.Info, contentDescription = "Profile", modifier = Modifier.size(24.dp)) },
                                     label = { Text("Profile", fontWeight = FontWeight.Bold) },
                                     colors = NavigationBarItemDefaults.colors(
-                                        selectedIconColor = Color(0xFF0061A4),
-                                        selectedTextColor = Color(0xFF1C1B1B),
-                                        unselectedIconColor = Color(0xFF49454F),
-                                        unselectedTextColor = Color(0xFF49454F),
-                                        indicatorColor = Color(0xFFD1E4FF)
+                                        selectedIconColor = Color(0xFF00E5FF),
+                                        selectedTextColor = Color(0xFF00E5FF),
+                                        unselectedIconColor = Color(0xFF94A3B8),
+                                        unselectedTextColor = Color(0xFF94A3B8),
+                                        indicatorColor = Color(0xFF00E5FF).copy(alpha = 0.2f)
                                     ),
                                     modifier = Modifier.testTag("tab_button_profile")
                                 )
@@ -129,7 +129,7 @@ class MainActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color(0xFFFDF8F8))
+                            .background(Color(0xFF030712))
                     ) {
                         when (currentTab) {
                             "home" -> HomeScreen(viewModel, innerPadding)

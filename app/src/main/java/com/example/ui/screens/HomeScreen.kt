@@ -52,6 +52,47 @@ import com.example.ui.StreamViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
+@Composable
+fun Modifier.neonGlowBorder(
+    glowColor: Color = Color(0xFF00E5FF),
+    isPulsing: Boolean = true,
+    shapeRadius: Float = 48f
+): Modifier {
+    val infiniteTransition = rememberInfiniteTransition(label = "glow")
+    val animatedAlpha by if (isPulsing) {
+        infiniteTransition.animateFloat(
+            initialValue = 0.35f,
+            targetValue = 1.0f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(1250, easing = LinearOutSlowInEasing),
+                repeatMode = RepeatMode.Reverse
+            ),
+            label = "alpha"
+        )
+    } else {
+        remember { mutableStateOf(0.8f) }
+    }
+    
+    return this.drawBehind {
+        val strokeWidth = 5f
+        // Draw primary blur aura
+        drawRoundRect(
+            color = glowColor.copy(alpha = animatedAlpha * 0.45f),
+            size = size,
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(shapeRadius, shapeRadius),
+            style = androidx.compose.ui.graphics.drawscope.Stroke(width = strokeWidth * 4f)
+        )
+        // Draw sharp fluorescent inner core line
+        drawRoundRect(
+            color = glowColor.copy(alpha = 0.9f),
+            size = size,
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(shapeRadius, shapeRadius),
+            style = androidx.compose.ui.graphics.drawscope.Stroke(width = strokeWidth)
+        )
+    }
+}
+
 @OptIn(UnstableApi::class)
 @Composable
 fun HomeScreen(
@@ -141,7 +182,7 @@ fun HomeScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFDF8F8))
+            .background(Brush.verticalGradient(colors = listOf(Color(0xFF0B0F19), Color(0xFF111827), Color(0xFF030712))))
             .padding(horizontal = 20.dp)
             .padding(top = innerPadding.calculateTopPadding(), bottom = innerPadding.calculateBottomPadding() + 8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -151,15 +192,18 @@ fun HomeScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp),
+                    .padding(vertical = 12.dp)
+                    .neonGlowBorder(glowColor = Color(0xFF00E5FF).copy(alpha = 0.45f), shapeRadius = 28f)
+                    .background(Color(0xFF1F2937).copy(alpha = 0.85f), RoundedCornerShape(14.dp))
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(
                         modifier = Modifier
-                            .size(40.dp)
-                            .background(Color(0xFF0061A4), CircleShape),
+                            .size(42.dp)
+                            .background(Brush.sweepGradient(listOf(Color(0xFF00E5FF), Color(0xFFFF007F), Color(0xFF00E5FF))), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Text("📡", style = MaterialTheme.typography.titleMedium, color = Color.White)
@@ -167,17 +211,17 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
                         Text(
-                            text = "StreamMaster Pro",
+                            text = "StreamMaster Pro ⚡",
                             style = MaterialTheme.typography.titleLarge,
-                            color = Color(0xFF1C1B1B),
-                            fontWeight = FontWeight.Bold
+                            color = Color.White,
+                            fontWeight = FontWeight.Black
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
-                            text = "Restream Engine v2.4",
+                            text = "Live restream engine (Lighting Active)",
                             style = MaterialTheme.typography.labelSmall,
-                            color = Color(0xFF49454F),
-                            fontWeight = FontWeight.SemiBold
+                            color = Color(0xFF00E5FF),
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }
@@ -192,12 +236,12 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .border(
                         width = 1.5.dp,
-                        color = Color(0xFF0061A4).copy(alpha = if (isHelpExpanded) 0.5f else 0.2f),
+                        color = Color(0xFF00E5FF).copy(alpha = if (isHelpExpanded) 0.6f else 0.2f),
                         shape = RoundedCornerShape(24.dp)
                     ),
                 shape = RoundedCornerShape(24.dp),
-                colors = CardDefaults.cardColors(containerColor = if (isHelpExpanded) Color(0xFFF1F5F9) else Color.White),
-                elevation = CardDefaults.cardElevation(defaultElevation = if (isHelpExpanded) 2.dp else 0.dp)
+                colors = CardDefaults.cardColors(containerColor = if (isHelpExpanded) Color(0xFF1E293B) else Color(0xFF111827).copy(alpha = 0.8f)),
+                elevation = CardDefaults.cardElevation(defaultElevation = if (isHelpExpanded) 4.dp else 0.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -211,7 +255,7 @@ fun HomeScreen(
                             Box(
                                 modifier = Modifier
                                     .size(32.dp)
-                                    .background(Color(0xFF0061A4).copy(alpha = 0.12f), CircleShape),
+                                    .background(Color(0xFF00E5FF).copy(alpha = 0.15f), CircleShape),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text("📲", style = MaterialTheme.typography.bodyLarge)
@@ -220,13 +264,13 @@ fun HomeScreen(
                                 Text(
                                     text = "এপিকে ডাউনলোড ও ইনস্টল গাইড 💾",
                                     style = MaterialTheme.typography.titleMedium,
-                                    color = Color(0xFF001D36),
+                                    color = Color.White,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
                                     text = if (isHelpExpanded) "সহজ ৪টি ধাপে অ্যাপ ফোনে নিন" else "ডাউনলোড করতে সমস্যা? এখানে ক্লিক করুন!",
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = Color(0xFF0061A4),
+                                    color = Color(0xFF00E5FF),
                                     fontWeight = FontWeight.SemiBold
                                 )
                             }
@@ -234,7 +278,7 @@ fun HomeScreen(
                         Icon(
                             imageVector = if (isHelpExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                             contentDescription = "Toggle Help",
-                            tint = Color(0xFF0061A4)
+                            tint = Color(0xFF00E5FF)
                         )
                     }
 
@@ -245,13 +289,13 @@ fun HomeScreen(
                     ) {
                         Column {
                             Spacer(modifier = Modifier.height(14.dp))
-                            HorizontalDivider(color = Color(0xFF0061A4).copy(alpha = 0.12f))
+                            HorizontalDivider(color = Color(0xFF00E5FF).copy(alpha = 0.15f))
                             Spacer(modifier = Modifier.height(12.dp))
                             
                             Text(
                                 text = "গুগল এআই স্টুডিও থেকে এপিকে (APK) ফাইল আপনার ফোনে নামানোর ৩টি সহজ ডিরেক্ট উপায়:",
                                 style = MaterialTheme.typography.bodySmall,
-                                color = Color(0xFF1C1B1B),
+                                color = Color(0xFFE2E8F0),
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = MaterialTheme.typography.bodySmall.lineHeight * 1.2
                             )
@@ -262,22 +306,22 @@ fun HomeScreen(
                                 Box(
                                     modifier = Modifier
                                         .size(20.dp)
-                                        .background(Color(0xFF0061A4), CircleShape),
+                                        .background(Color(0xFF00E5FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("১", style = MaterialTheme.typography.labelSmall, color = Color.White, fontWeight = FontWeight.Black)
+                                    Text("১", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
                                 }
                                 Column {
                                     Text(
                                         text = "এআই স্টুডিওর সেটিংস প্যানেল থেকে (Easy Export)",
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color(0xFF001D36)
+                                        color = Color.White
                                     )
                                     Text(
                                         text = "আপনার ব্রাউজার স্ক্রিনের ওপরের ডানদিকের গিয়ার (Gear/Hamburger) আইকনে ক্লিক করুন, সেখান থেকে 'Generate APK' সিলেক্ট করুন। ৩ মিনিট সময় লাগবে, তারপর ডাউনলোড লিংক স্ক্রিনে চলে আসবে।",
                                         style = MaterialTheme.typography.labelSmall,
-                                        color = Color(0xFF49454F)
+                                        color = Color(0xFF94A3B8)
                                     )
                                 }
                             }
@@ -287,22 +331,22 @@ fun HomeScreen(
                                 Box(
                                     modifier = Modifier
                                         .size(20.dp)
-                                        .background(Color(0xFF0061A4), CircleShape),
+                                        .background(Color(0xFF00E5FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("২", style = MaterialTheme.typography.labelSmall, color = Color.White, fontWeight = FontWeight.Black)
+                                    Text("২", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
                                 }
                                 Column {
                                     Text(
                                         text = "সরাসরি এডমিন আপডেটেড ডাউনলোড লিংক (Direct Link)",
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color(0xFF001D36)
+                                        color = Color.White
                                     )
                                     Text(
                                         text = "এডমিন কর্তৃক আপলোড করা গুগল ড্রাইভ বা অন্য সরাসরি ইনস্টলার লিংক থেকে যেকোনো সময় ডাউনলোড করতে নিচের নীল বাটনে ট্যাপ করুন।",
                                         style = MaterialTheme.typography.labelSmall,
-                                        color = Color(0xFF49454F)
+                                        color = Color(0xFF94A3B8)
                                     )
                                 }
                             }
@@ -312,22 +356,22 @@ fun HomeScreen(
                                 Box(
                                     modifier = Modifier
                                         .size(20.dp)
-                                        .background(Color(0xFF0061A4), CircleShape),
+                                        .background(Color(0xFF00E5FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("৩", style = MaterialTheme.typography.labelSmall, color = Color.White, fontWeight = FontWeight.Black)
+                                    Text("৩", style = MaterialTheme.typography.labelSmall, color = Color(0xFF0B0F19), fontWeight = FontWeight.Black)
                                 }
                                 Column {
                                     Text(
                                         text = "ইনস্টলেশন ওয়ার্নিং এড়িয়ে চলুন (Install Unknown Apps)",
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color(0xFF001D36)
+                                        color = Color.White
                                     )
                                     Text(
                                         text = "ডাউনলোড শেষে ইন্সটল করার সময় অ্যান্ড্রয়েড 'Unknown Sources' বা 'Chrome/Browser Install' ওয়ার্নিং দেখাবে, দয়া করে 'Install Anyway' বা 'পারমিশন দিন' দিয়ে সফলভাবে ইনস্টল করে নিন।",
                                         style = MaterialTheme.typography.labelSmall,
-                                        color = Color(0xFF49454F)
+                                        color = Color(0xFF94A3B8)
                                     )
                                 }
                             }
@@ -347,16 +391,16 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(48.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4)),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00E5FF)),
                                 shape = RoundedCornerShape(12.dp)
                             ) {
-                                Icon(imageVector = Icons.Default.Share, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+                                Icon(imageVector = Icons.Default.Share, contentDescription = null, tint = Color(0xFF0B0F19), modifier = Modifier.size(18.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = "সরাসরি লিঙ্ক থেকে এপিকে (APK) নামান ⚡",
                                     fontWeight = FontWeight.Bold,
                                     style = MaterialTheme.typography.labelLarge,
-                                    color = Color.White
+                                    color = Color(0xFF0B0F19)
                                 )
                             }
                         }
@@ -370,13 +414,10 @@ fun HomeScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFF0061A4).copy(alpha = 0.15f),
-                        shape = RoundedCornerShape(24.dp)
-                    ),
+                    .neonGlowBorder(glowColor = Color(0xFF10B981).copy(alpha = 0.45f), shapeRadius = 28f)
+                    .background(Color(0xFF1E2937).copy(alpha = 0.9f), RoundedCornerShape(14.dp)),
                 shape = RoundedCornerShape(24.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFEFF5FF)),
+                colors = CardDefaults.cardColors(containerColor = Color.Transparent),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -390,25 +431,25 @@ fun HomeScreen(
                             Icon(
                                 imageVector = Icons.Default.Add, // Standard add wallet credit icon
                                 contentDescription = "Credits Balance",
-                                tint = Color(0xFF0061A4),
+                                tint = Color(0xFF10B981),
                                 modifier = Modifier.size(20.dp)
                             )
                             Text(
                                 text = "আপনার ব্যালেন্স:",
                                 style = MaterialTheme.typography.titleMedium,
-                                color = Color(0xFF001D36),
+                                color = Color.White,
                                 fontWeight = FontWeight.Bold
                             )
                         }
                         Box(
                             modifier = Modifier
-                                .background(Color(0xFF0061A4), RoundedCornerShape(10.dp))
+                                .background(Color(0xFF10B981), RoundedCornerShape(10.dp))
                                 .padding(horizontal = 10.dp, vertical = 6.dp)
                         ) {
                             Text(
                                 text = "${config.userCredits} Credit",
                                 style = MaterialTheme.typography.labelLarge,
-                                color = Color.White,
+                                color = Color(0xFF0B0F19),
                                 fontWeight = FontWeight.Black
                             )
                         }
@@ -419,26 +460,26 @@ fun HomeScreen(
                     Text(
                         text = "১টি লাইভ স্ট্রিম সেশন = ${config.streamCost} ক্রেডিট।",
                         style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF0061A4),
+                        color = Color(0xFF6EE7B7),
                         fontWeight = FontWeight.Bold
                     )
 
                     if (config.adminAnnouncement.isNotBlank()) {
                         Spacer(modifier = Modifier.height(10.dp))
-                        HorizontalDivider(color = Color(0xFF0061A4).copy(alpha = 0.15f))
+                        HorizontalDivider(color = Color(0xFF10B981).copy(alpha = 0.2f))
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = "Announcement",
-                                tint = Color(0xFF0061A4),
+                                tint = Color(0xFF10B981),
                                 modifier = Modifier.size(16.dp)
                             )
                             Text(
                                 text = config.adminAnnouncement,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = Color(0xFF1C1B1B),
+                                color = Color(0xFFE2E8F0),
                                 lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.15
                             )
                         }
@@ -448,7 +489,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(12.dp))
                     var redeemCode by remember { mutableStateOf("") }
                     var redeemStatus by remember { mutableStateOf("") }
-                    var redeemColor by remember { mutableStateOf(Color(0xFF0061A4)) }
+                    var redeemColor by remember { mutableStateOf(Color(0xFF00E5FF)) }
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -458,13 +499,17 @@ fun HomeScreen(
                         OutlinedTextField(
                             value = redeemCode,
                             onValueChange = { redeemCode = it },
-                            placeholder = { Text("ক্রেডিট কোড (যেমন: FREE50)", style = MaterialTheme.typography.labelSmall) },
-                            modifier = Modifier.weight(1f).height(48.dp),
+                            placeholder = { Text("ক্রেডিট কোড (যেমন: FREE50)", style = MaterialTheme.typography.labelSmall, color = Color(0xFF94A3B8)) },
+                            modifier = Modifier.weight(1f).height(50.dp),
                             singleLine = true,
                             shape = RoundedCornerShape(12.dp),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White
+                                focusedContainerColor = Color(0xFF0F172A),
+                                unfocusedContainerColor = Color(0xFF1E293B),
+                                focusedTextColor = Color.White,
+                                unfocusedTextColor = Color.White,
+                                focusedBorderColor = Color(0xFF10B981),
+                                unfocusedBorderColor = Color(0xFF4B5563)
                             )
                         )
                         Button(
@@ -509,9 +554,9 @@ fun HomeScreen(
                             },
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.height(48.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0061A4))
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981))
                         ) {
-                            Text("রিডিম", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
+                            Text("রিডিম", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium, color = Color(0xFF0B0F19))
                         }
                     }
 
@@ -535,11 +580,12 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(210.dp)
-                    .border(4.dp, Color.White, RoundedCornerShape(24.dp))
+                    .neonGlowBorder(glowColor = if (isStreaming) Color(0xFFFF007F) else Color(0xFF00E5FF), shapeRadius = 48f)
+                    .border(1.5.dp, Color.White.copy(alpha = 0.2f), RoundedCornerShape(24.dp))
                     .testTag("player_window_card"),
                 shape = RoundedCornerShape(24.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.Black),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF0B1424)),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     if (inputUrl.isNotBlank()) {
@@ -565,7 +611,7 @@ fun HomeScreen(
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
                                 contentDescription = null,
-                                tint = Color(0xFF0061A4),
+                                tint = Color(0xFF00E5FF),
                                 modifier = Modifier.size(48.dp)
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -621,7 +667,7 @@ fun HomeScreen(
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(6.dp))
-                                    .background(Color(0xFFDC2626).copy(alpha = pulseAlpha))
+                                    .background(Color(0xFFEF4444).copy(alpha = pulseAlpha))
                                     .padding(horizontal = 8.dp, vertical = 4.dp)
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -663,15 +709,15 @@ fun HomeScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color(0xFFE1E2E1), RoundedCornerShape(24.dp)),
+                    .border(1.5.dp, Color(0xFF00E5FF).copy(alpha = 0.25f), RoundedCornerShape(24.dp)),
                 shape = RoundedCornerShape(24.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F3F3))
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF111827).copy(alpha = 0.85f))
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
                         text = "SOURCE INPUT (HLS/RTMP/MP4)",
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color(0xFF0061A4),
+                        color = Color(0xFF00E5FF),
                         fontWeight = FontWeight.Bold,
                         letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing * 1.5
                     )
@@ -682,19 +728,19 @@ fun HomeScreen(
                             inputUrl = it
                             viewModel.updateConfig(config.copy(sourceVideoUrl = it))
                         },
-                        placeholder = { Text("Paste MP4, HLS (.m3u8), or RTSP Link here", color = Color(0xFF49454F).copy(alpha = 0.6f)) },
+                        placeholder = { Text("Paste MP4, HLS (.m3u8), or RTSP Link here", color = Color(0xFF94A3B8).copy(alpha = 0.6f)) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .testTag("source_link_input"),
                         singleLine = true,
                         shape = RoundedCornerShape(16.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color(0xFF0061A4),
-                            unfocusedBorderColor = Color(0xFFC4C7C5),
-                            focusedContainerColor = Color.White,
-                            unfocusedContainerColor = Color.White,
-                            focusedTextColor = Color(0xFF1C1B1B),
-                            unfocusedTextColor = Color(0xFF1C1B1B)
+                            focusedBorderColor = Color(0xFF00E5FF),
+                            unfocusedBorderColor = Color(0xFF475569),
+                            focusedContainerColor = Color(0xFF1E293B),
+                            unfocusedContainerColor = Color(0xFF0F172A),
+                            focusedTextColor = Color.White,
+                            unfocusedTextColor = Color.White
                         ),
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Uri,
@@ -704,7 +750,7 @@ fun HomeScreen(
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
                                 contentDescription = null,
-                                tint = Color(0xFF0061A4)
+                                tint = Color(0xFF00E5FF)
                             )
                         }
                     )
@@ -713,7 +759,7 @@ fun HomeScreen(
                     Text(
                         text = "দ্রুত টেস্ট করতে একটি স্যাম্পল সোর্স সিলেক্ট করুন (Tap to Test):",
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color(0xFF49454F),
+                        color = Color(0xFF94A3B8),
                         fontWeight = FontWeight.SemiBold
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -747,7 +793,19 @@ fun HomeScreen(
                                         )
                                     }
                                 } else null,
-                                elevation = FilterChipDefaults.filterChipElevation(elevation = 2.dp)
+                                colors = FilterChipDefaults.filterChipColors(
+                                    containerColor = Color(0xFF1E293B),
+                                    selectedContainerColor = Color(0xFF00E5FF),
+                                    labelColor = Color(0xFF94A3B8),
+                                    selectedLabelColor = Color(0xFF0F172A),
+                                    selectedLeadingIconColor = Color(0xFF0F172A)
+                                ),
+                                border = FilterChipDefaults.filterChipBorder(
+                                    enabled = true,
+                                    selected = inputUrl == url,
+                                    borderColor = Color(0xFF475569),
+                                    selectedBorderColor = Color(0xFF00E5FF)
+                                )
                             )
                         }
                     }
@@ -760,13 +818,14 @@ fun HomeScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .neonGlowBorder(glowColor = if (isStreaming) Color(0xFFFF007F) else Color(0xFF3B82F6), shapeRadius = 24f)
                     .border(
-                        width = 1.dp,
-                        color = Color(0xFFD1E4FF),
+                        width = 1.5.dp,
+                        color = (if (isStreaming) Color(0xFFFF007F) else Color(0xFF3B82F6)).copy(alpha = 0.4f),
                         shape = RoundedCornerShape(24.dp)
                     ),
                 shape = RoundedCornerShape(24.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFD1E4FF))
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF111827).copy(alpha = 0.85f))
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Row(
@@ -777,18 +836,18 @@ fun HomeScreen(
                         Text(
                             text = "Restream Targets",
                             style = MaterialTheme.typography.titleSmall,
-                            color = Color(0xFF001D36),
+                            color = Color.White,
                             fontWeight = FontWeight.Bold
                         )
                         Box(
                             modifier = Modifier
-                                .background(Color.White.copy(alpha = 0.5f), RoundedCornerShape(12.dp))
+                                .background(Color(0xFF1E293B), RoundedCornerShape(12.dp))
                                 .padding(horizontal = 8.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "FFMPEG CORE ACTIVE",
+                                text = if (isStreaming) "FFMPEG CORE ONLINE" else "FFMPEG CORE READY",
                                 style = MaterialTheme.typography.labelSmall,
-                                color = Color(0xFF0061A4),
+                                color = if (isStreaming) Color(0xFFFF007F) else Color(0xFF00E5FF),
                                 fontWeight = FontWeight.Black
                             )
                         }
@@ -802,22 +861,22 @@ fun HomeScreen(
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .background(Color.White, RoundedCornerShape(16.dp))
-                                .border(1.dp, Color(0xFF0061A4).copy(alpha = 0.12f), RoundedCornerShape(16.dp))
+                                .background(Color(0xFF1E293B), RoundedCornerShape(16.dp))
+                                .border(1.dp, Color(0xFF334155), RoundedCornerShape(16.dp))
                                 .padding(12.dp)
                         ) {
                             TelemetryInfoItem(
                                 label = "FPS (Output)",
                                 value = if (isStreaming) "30.0" else "0.0",
                                 icon = Icons.Default.List,
-                                iconColor = Color(0xFF0061A4)
+                                iconColor = Color(0xFF00E5FF)
                             )
                         }
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .background(Color.White, RoundedCornerShape(16.dp))
-                                .border(1.dp, Color(0xFF0061A4).copy(alpha = 0.12f), RoundedCornerShape(16.dp))
+                                .background(Color(0xFF1E293B), RoundedCornerShape(16.dp))
+                                .border(1.dp, Color(0xFF334155), RoundedCornerShape(16.dp))
                                 .padding(12.dp)
                         ) {
                             TelemetryInfoItem(
@@ -834,8 +893,8 @@ fun HomeScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(Color.White, RoundedCornerShape(16.dp))
-                            .border(1.dp, Color(0xFF0061A4).copy(alpha = 0.12f), RoundedCornerShape(16.dp))
+                            .background(Color(0xFF1E293B), RoundedCornerShape(16.dp))
+                            .border(1.dp, Color(0xFF334155), RoundedCornerShape(16.dp))
                             .padding(12.dp)
                     ) {
                         Row(
@@ -847,14 +906,14 @@ fun HomeScreen(
                                 label = "Output Bitrate",
                                 value = if (isStreaming) "%.0f kB/s".format(bitrate) else "0 kB/s",
                                 icon = Icons.Default.PlayArrow,
-                                iconColor = Color(0xFF0061A4)
+                                iconColor = Color(0xFF00E5FF)
                             )
                             val min = duration / 60
                             val sec = duration % 60
                             Text(
                                 text = "Duration: %02d:%02d".format(min, sec),
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = Color(0xFF1C1B1B),
+                                color = Color(0xFF38BDF8),
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace
                             )
@@ -881,19 +940,20 @@ fun HomeScreen(
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF0061A4)
+                            containerColor = if (isStreaming) Color(0xFFFF007F) else Color(0xFF00E5FF)
                         ),
                         shape = CircleShape,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
+                            .neonGlowBorder(glowColor = if (isStreaming) Color(0xFFFF007F) else Color(0xFF00E5FF), shapeRadius = 56f)
                             .testTag("control_stream_button")
                     ) {
                         Text(
                             text = if (isStreaming) "🛑 STOP MULTI-STREAM" else "🚀 START MULTI-STREAM",
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Black,
                             style = MaterialTheme.typography.titleMedium,
-                            color = Color.White
+                            color = if (isStreaming) Color.White else Color(0xFF0B0F19)
                         )
                     }
 
